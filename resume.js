@@ -1,9 +1,11 @@
+import data from './Data.json' assert {type: 'json'};
+
 window.history.pushState(null, null, window.location.href);
 window.onpopstate = function () {
     window.history.go(1);
 };
 
-import data from './Data.json' assert {type: 'json'};
+
 sessionStorage.setItem('currentPosition', '0');
 sessionStorage.setItem('currentSearchPosition', '0');
 // fetch('./Data.json')
@@ -26,7 +28,7 @@ let searchBoxValue = document.querySelector('#searchBox input');
 searchBoxValue.addEventListener('keypress', (event) => {
     if(event.keyCode == 13){
         searchResults = getResults(searchBoxValue.value, allObjects);
-        console.log(searchResults.length);
+        // console.log(searchResults.length);
         if(searchBoxValue.value !== "" && searchResults.length === 0){  //search box has text but search result is 0
             console.log("value not found");
         }else if(searchBoxValue.value === "" && searchResults.length === 0){    //search box has no text, considering it as good as operation without search
@@ -116,6 +118,9 @@ function getResults(value, allObjects){
     const arrOfFoundResult = [];
     if(value === ""){
         console.log("is Empty")
+        for(let i=0; i<=finalPosition;i++){
+            arrOfFoundResult.push(allObjects[i])
+        }
     }else{
         for(let i=0; i<=finalPosition;i++){
             // console.log(allObjects[i]);
